@@ -1,0 +1,214 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 背景和文字 */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  color: #284e77;
+  text-decoration: none;
+}
+
+
+
+.input-container {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  margin-bottom: 10px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+input[type="submit"] {
+  background-color: #3c6999;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+input[type="submit"]:hover {
+  background-color: #284e77(55, 66, 78);
+}
+
+/* 左邊選單 */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200px;
+  background-color: #3c6999;
+  box-shadow: 2px 0 2px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar ul {
+  list-style: none;
+  margin: 10px;
+  padding: 20px 0 0 0;
+}
+
+#sidebar li {
+  padding: 10px;
+  color: #ffffff;
+  padding: 15px 20px;
+}
+
+#sidebar li:hover {
+  background-color: #ffffff;
+  color: #4a728b;
+  cursor: pointer;
+}
+
+#sidebar li:hover a {
+  color: #284e77;
+}
+
+/* 主要區域 */
+.container {
+  margin-left: 200px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.container h1 {
+  margin-bottom: 20px;
+}
+
+/* 表單 */
+.input-container {
+  margin-bottom: 20px;
+}
+
+.input-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.input-container input[type="text"] {
+  width: 200px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.input-container input[type="submit"] {
+  padding: 5px 20px;
+  background-color: #008CBA;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* 已被診斷icd*/
+.existing-icd-container {
+  display: block;
+}
+
+.existing-icd-container.show {
+  display: block;
+  margin-top: 30px;
+}
+
+.existing-icd-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.existing-icd-container ul {
+  list-style-type: none;
+}
+
+.existing-icd-container ul li {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.existing-icd-container ul li:before {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* 共病性結果 */
+.result-container {
+  display: block;
+}
+
+.result-container.show {
+  display: block;
+  margin-top: 30px;
+}
+
+.result-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.result-container ul {
+  list-style-type: none;
+}
+
+.result-container ul li {
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.result-container ul li:before {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
