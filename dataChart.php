@@ -58,29 +58,24 @@
         }
 
         // 根據使用者的選擇篩選資料
-        switch ($age) {
-          case '0-12':
-            $age_condition = "AGE BETWEEN 0 AND 12";
-            break;
-          case '13-18':
-            $age_condition = "AGE BETWEEN 13 AND 24";
-            break;
-          case '19-30':
-            $age_condition = "AGE BETWEEN 25 AND 44";
-            break;
-          case '31-50':
-            $age_condition = "AGE BETWEEN 45 AND 64";
-            break;
-          case '51-65':
-            $age_condition = "AGE BETWEEN 65 AND 100";
-            break;
-          case '0-100':
-            $age_condition = "AGE BETWEEN 0 AND 100";
-            break;
-          default:
-            $age_condition = "1";
-            break;
+        // 定義數字範圍
+        $age_ranges = [
+          '0-12' => [0, 12],
+          '13-18' => [13, 18],
+          '19-30' => [19, 30],
+          '31-50' => [31, 50],
+          '51-65' => [51, 65],
+          '0-100' => [0, 100],
+        ];
+
+        // 取得對應的範圍
+        if (isset($age_ranges[$age])) {
+          $range = $age_ranges[$age];
+          $age_condition = "AGE BETWEEN {$range[0]} AND {$range[1]}";
+        } else {
+          $age_condition = "1";
         }
+
 
 
         // 構造 SQL 語句
@@ -144,6 +139,8 @@
         // 將結果儲存在陣列中
         $icd10s = array();
         $counts = array();
+        $icd_category = array();
+        $category_counts = array();
         while ($row = $result_icd_count->fetch_assoc()) {
           $icd10s[] = $row['ICD10'];
           $counts[] = $row['count'];
@@ -206,7 +203,7 @@
           datasets: [{
             label: '疾病數據統計',
             data: <?php echo json_encode($counts); ?>,
-            backgroundColor: '#ff6384', 
+            backgroundColor: '#ff6384',
             borderWidth: 1
           }]
         },

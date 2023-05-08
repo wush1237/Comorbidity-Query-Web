@@ -52,7 +52,7 @@
         }
 
         // 查詢該患者已被診斷的ICD編碼
-        $sql_existing = "SELECT ICD9 FROM tester WHERE CHARTID = '$id'";
+        $sql_existing = "SELECT ICD FROM tester WHERE CHARTID = '$id'";
         $result_existing = mysqli_query($conn, $sql_existing);
         echo "身分證字號 $id 患者<br>";
 
@@ -61,8 +61,8 @@
           echo "<h2>已診斷疾病：</h2>";
           echo "<ul>";
           while ($row_existing = mysqli_fetch_assoc($result_existing)) {
-            $icd_existing = $row_existing["ICD9"];
-            $icd_existing_name = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE ICD9code = '$icd_existing'");
+            $icd_existing = $row_existing["ICD"];
+            $icd_existing_name = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE TRIM(ICD10code) = '$icd_existing'");
             $icd_name = "";
             if (mysqli_num_rows($icd_existing_name) > 0) {
               $row_icd_name = mysqli_fetch_assoc($icd_existing_name);
@@ -102,10 +102,10 @@
           $icd_codes = array();
           $diagnosed_icd_codes = array(); // 存儲已被診斷的ICD編碼
           while ($row = mysqli_fetch_assoc($result)) {
-            $icd = $row["ICD9"];
+            $icd = $row["ICD"];
             $diagnosed_icd_codes[] = $icd; // 將已被診斷的ICD編碼存儲到陣列中
             // 在表格icd_rr中搜尋該ICD編碼的共病性RR值，但不包含已被診斷的疾病
-            $sql2 = "SELECT * FROM icd_rr WHERE ICD2 = '$icd' AND ICD1 NOT IN ('" . implode("','", $diagnosed_icd_codes) . "') ORDER BY RR DESC LIMIT 3";
+            $sql2 = "SELECT * FROM icd10_rr WHERE ICD2 LIKE '%$icd%' AND ICD1 NOT IN ('" . implode("','", $diagnosed_icd_codes) . "') ORDER BY RR DESC LIMIT 3";
             $result2 = mysqli_query($conn, $sql2);
 
             // 將結果存儲到陣列中
@@ -131,7 +131,7 @@
             arsort($icd_codes); // 將陣列按照 $rr 值由大到小排序
             echo "<ul>";
             foreach ($icd_codes as $icd => $rr) {
-              $icd_name = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE ICD9code = '$icd'");
+              $icd_name = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE ICD10code = '$icd'");
               $name = "";
               if (mysqli_num_rows($icd_name) > 0) {
                 $row_name = mysqli_fetch_assoc($icd_name);

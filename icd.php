@@ -61,7 +61,7 @@
           echo "<h3>ICD編碼: $icd1</h3>";
 
           // 查詢icd共病性資料
-          $sql = "SELECT * FROM icd_rr WHERE ICD2 = '$icd1' ORDER BY RR DESC LIMIT $rows";
+          $sql = "SELECT * FROM icd10_rr WHERE ICD2 LIKE '%$icd1%' ORDER BY RR DESC LIMIT $rows";
           $result = $conn->query($sql);
 
           // 顯示查詢結果
@@ -70,7 +70,7 @@
             while ($row = $result->fetch_assoc()) {
               $icd = $row["ICD1"];
               $rr = $row["RR"];
-              $icd_name = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE icd9code = '$icd'");
+              $icd_name = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE ICD10code = '$icd'");
               $name = "";
               if (mysqli_num_rows($icd_name) > 0) {
                 $row_name = mysqli_fetch_assoc($icd_name);
@@ -90,7 +90,7 @@
         echo "<h3>$icd1,與 $icd2 的共病性關係 <br> </h3>";
 
         // 查詢icd共病性資料
-        $sql = "SELECT * FROM icd_rr WHERE ICD1 = '$icd2' AND ICD2 = '$icd1'";
+        $sql = "SELECT * FROM icd10_rr WHERE ICD1 LIKE '%$icd2%' AND ICD2  LIKE '%$icd1%'";
         $result = $conn->query($sql);
 
         // 顯示查詢結果
@@ -100,8 +100,8 @@
           $icd1 = $row["ICD1"];
           $icd2 = $row["ICD2"];
           $rr = $row["RR"];
-          $icd_name1 = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE icd9code = '$icd1'");
-          $icd_name2 = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE icd9code = '$icd2'");
+          $icd_name1 = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE ICD10code = '$icd1'");
+          $icd_name2 = mysqli_query($conn, "SELECT ICDname FROM icd9toicd10 WHERE ICD10code = '$icd2'");
           $name1 = "";
           $name2 = "";
           if (mysqli_num_rows($icd_name1) > 0) {
